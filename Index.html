@@ -204,6 +204,44 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
 
+        /* Hero Logo Styles */
+.hero-logo-container {
+    margin-bottom: 1.5rem;
+    animation: heroFloat 4s ease-in-out infinite;
+}
+
+.hero-logo {
+    height: 80px;
+    width: auto;
+    filter: drop-shadow(0 4px 8px rgba(255, 255, 255, 0.3));
+}
+
+@keyframes heroFloat {
+    0%, 100% { 
+        transform: translateY(0) scale(1); 
+    }
+    50% { 
+        transform: translateY(-10px) scale(1.05); 
+    }
+}
+
+/* Mobile responsive for hero logo */
+@media (max-width: 768px) {
+    .hero-logo {
+        height: 60px;
+    }
+    
+    .hero-logo-container {
+        margin-bottom: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-logo {
+        height: 50px;
+    }
+}
+
         /* Sections */
         .container {
             width: 90%;
@@ -591,13 +629,17 @@
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-content">
-            <h1>Innovating for a Smarter Tomorrow</h1>
-            <p>FiveSpace World Group® is a dynamic MSME driving progress across architecture, construction, technology, HR, and corporate services.</p>
-            <a href="#brands" class="cta-button">Explore Our Brands</a>
+    <div class="hero-content">
+        <!-- Add this logo above the heading -->
+        <div class="hero-logo-container">
+            <img src="Lavelogo.png" alt="FiveSpace World Group Logo" class="hero-logo">
         </div>
+        <h1>Innovating for a Smarter Tomorrow</h1>
+        <p>FiveSpace World Group® is a dynamic MSME driving progress across architecture, construction, technology, HR, and corporate services.</p>
+        <a href="#brands" class="cta-button">Explore Our Brands</a>
+    </div>
     </section>
-
+    
     <!-- About Section -->
     <section class="about" id="about">
         <div class="container">
