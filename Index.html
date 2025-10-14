@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FiveSpace World Group | MSME</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="Lavelogo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Quicksand', sans-serif;
+        }
+        
+        :root {
+            --lavender: #967BB6;
+            --sand: #f0e9e0;
+            --dark: #333;
+            --white: #fff;
+        }
+        
+        body {
+            background-color: var(--sand);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--white);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 1rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            z-index: 1001;
+        }
+
+        .logo-img {
+            height: 40px;
+            width: auto;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .logo-text {
+            color: var(--lavender);
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        /* Desktop Navigation */
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        .nav-links a:hover {
+            color: var(--lavender);
+            background: var(--sand);
+        }
+
+        /* Mobile Navigation */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+            z-index: 1001;
+            padding: 0.5rem;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--lavender);
+            transition: 0.3s;
+            transform-origin: center;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: var(--white);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            flex-direction: column;
+            padding: 2rem 0;
+            z-index: 999;
+            transform: translateY(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-nav.active {
+            display: flex;
+            transform: translateY(0);
+        }
+
+        .mobile-nav a {
+            color: var(--dark);
+            text-decoration: none;
+            padding: 1rem 2rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            border-bottom: 1px solid var(--sand);
+            text-align: center;
+        }
+
+        .mobile-nav a:hover {
+            background: var(--sand);
+            color: var(--lavender);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--lavender) 0%, #764ba2 100%);
+            color: white;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-top: 60px;
+            padding: 0 1rem;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            font-weight: 500;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: var(--sand);
+            color: var(--lavender);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        /* Sections */
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 4rem 0;
+        }
+
+        section h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            color: var(--lavender);
+            font-weight: 600;
+        }
+
+        .about {
+            background: var(--white);
+        }
+
+        /* Brands Grid */
+        .brands-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .brand-card {
+            background: var(--white);
+            padding: 2.5rem 2rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .brand-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--lavender);
+            box-shadow: 0 12px 30px rgba(150, 123, 182, 0.25);
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .brand-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .brand-card h3 {
+            color: var(--lavender);
+            margin-bottom: 1rem;
+            font-weight: 600;
+            font-size: 1.4rem;
+        }
+
+        .brand-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--sand);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+            background: var(--white);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--lavender);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: var(--lavender);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .submit-btn:hover {
+            background: #8569a3;
+            transform: translateY(-2px);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: var(--lavender);
+            color: white;
+            text-align: center;
+        }
+
+        .contact h2 {
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a252f;
+            color: #ecf0f1;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--sand);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--lavender);
+        }
+
+        .corporate-family {
+            margin-top: 1rem;
+            font-size: 1rem;
+            color: var(--sand);
+            font-weight: 500;
+        }
+
+        .corporate-family a {
+            color: var(--lavender);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .corporate-family a:hover {
+            color: var(--white);
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        /* Icon Animations */
+        .brand-card:nth-child(1) .brand-icon { animation: float 3s ease-in-out infinite; }
+        .brand-card:nth-child(2) .brand-icon { animation: pulse 2s infinite; }
+        .brand-card:nth-child(3) .brand-icon { animation: bounce 2s infinite; }
+        .brand-card:nth-child(4) .brand-icon { animation: spin 4s linear infinite; }
+        .brand-card:nth-child(5) .brand-icon { animation: shake 2s infinite; }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero-content p {
+                font-size: 1.1rem;
+                padding: 0 1rem;
+            }
+
+            section h2 {
+                font-size: 2rem;
+            }
+
+            .brands-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .contact-form {
+                padding: 2rem 1.5rem;
+                margin: 0 1rem;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .mobile-nav {
+                top: 100%;
+                height: auto;
+                max-height: calc(100vh - 100%);
+                overflow-y: auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 1.8rem;
+            }
+
+            .logo-text {
+                font-size: 1.2rem;
+            }
+
+            .container {
+                width: 95%;
+                padding: 3rem 0;
+            }
+
+            .nav-container {
+                padding: 0.8rem 0;
+            }
+
+            .logo-img {
+                height: 35px;
+            }
+
+            .hero {
+                height: 70vh;
+                margin-top: 50px;
+            }
+        }
+
+        /* Fix for tablet portrait mode */
+        @media (max-width: 1024px) and (min-width: 769px) {
+            .nav-links {
+                gap: 1.5rem;
+            }
+            
+            .nav-links a {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo-container">
+                <img src="Lavelogo.png" alt="FiveSpace World Group Logo" class="logo-img">
+                <div class="logo-text">FiveSpace World Group</div>
+            </div>
+
+            <!-- Desktop Navigation -->
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#brands">Brands</a>
+                <a href="#contact">Contact</a>
+                <a href="https://worldfs.netlify.app" target="_blank">Corporate</a>
+            </div>
+
+            <!-- Mobile Hamburger -->
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div class="mobile-nav" id="mobileNav">
+            <a href="#about" onclick="closeMobileNav()">About</a>
+            <a href="#brands" onclick="closeMobileNav()">Brands</a>
+            <a href="#contact" onclick="closeMobileNav()">Contact</a>
+            <a href="https://worldfs.netlify.app" target="_blank" onclick="closeMobileNav()">Corporate</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Innovating for a Smarter Tomorrow</h1>
+            <p>FiveSpace World Group is a dynamic MSME driving progress across architecture, construction, technology, HR, and corporate services.</p>
+            <a href="#brands" class="cta-button">Explore Our Brands</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2>About FiveSpace World Group</h2>
+            <p>We are a trusted MSME registered group, dedicated to delivering quality and innovation across diverse sectors. Our portfolio of specialized brands works synergistically to create exceptional value for our clients and communities. We are proud to be part of the Zahan World Corporate family.</p>
+        </div>
+    </section>
+
+    <!-- Brands Section -->
+    <section class="brands" id="brands">
+        <div class="container">
+            <h2>Our Brands</h2>
+            <div class="brands-grid">
+                <a href="https://fivespace.netlify.app/" class="brand-card" target="_blank">
+                    <span class="brand-icon">🏛️</span>
+                    <h3>FiveSpace Design Studio</h3>
+                    <p>Architecture, interior design, landscaping, and architectural visualization services that transform spaces into inspiring environments.</p>
+                </a>
+                
+                <a href="https://sites.google.com/view/fivespace-chartered-realty" class="brand-card" target="_blank">
+                    <span class="brand-icon">🏗️</span>
+                    <h3>FiveSpace Builders</h3>
+                    <p>Comprehensive construction and development services building the foundations of tomorrow with integrity and expertise.</p>
+                </a>
+                
+                <a href="https://lmsf.netlify.app/" class="brand-card" target="_blank">
+                    <span class="brand-icon">💻</span>
+                    <h3>FiveSpace LMS & Software</h3>
+                    <p>Cutting-edge learning management systems and software solutions that power educational and business transformation.</p>
+                </a>
+                
+                <a href="https://gvfs.netlify.app/" class="brand-card" target="_blank">
+                    <span class="brand-icon">🌐</span>
+                    <h3>Global Vacancy FiveSpace</h3>
+                    <p>Human resources, talent management, and consulting services connecting exceptional talent with extraordinary opportunities.</p>
+                </a>
+                
+                <a href="https://tourc.netlify.app/" class="brand-card" target="_blank">
+                    <span class="brand-icon">🚗</span>
+                    <h3>FiveSpace Corporate Travel</h3>
+                    <p>Premium corporate transportation services ensuring comfortable, reliable, and professional travel experiences.</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2>Get In Touch</h2>
+            <div class="contact-form">
+                <!-- Netlify Form - Fixed Version -->
+                <form name="contact" method="POST" netlify>
+                    <input type="hidden" name="form-name" value="contact">
+                    
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="service">Service Interested In</label>
+                        <select id="service" name="service">
+                            <option value="" selected>Select a service</option>
+                            <option value="Design Services">Design Services</option>
+                            <option value="Construction">Construction</option>
+                            <option value="Software Solutions">Software Solutions</option>
+                            <option value="HR Services">HR Services</option>
+                            <option value="Corporate Travel">Corporate Travel</option>
+                            <option value="General Inquiry">General Inquiry</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Your Message *</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#about">About</a>
+                <a href="#brands">Our Brands</a>
+                <a href="#contact">Contact</a>
+                <a href="https://worldfs.netlify.app" target="_blank">Corporate Family</a>
+            </div>
+            
+            <div class="corporate-family">
+                A <a href="https://worldfs.netlify.app" target="_blank">Zahan World Corporate</a> Company
+            </div>
+            
+            <p>&copy; 2025 FiveSpace World Group. An MSME Registered Entity.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Navigation
+        const hamburger = document.getElementById('hamburger');
+        const mobileNav = document.getElementById('mobileNav');
+
+        function toggleMobileNav() {
+            mobileNav.classList.toggle('active');
+            hamburger.classList.toggle('active');
+            
+            // Prevent body scroll when mobile nav is open
+            if (mobileNav.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        function closeMobileNav() {
+            mobileNav.classList.remove('active');
+            hamburger.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        hamburger.addEventListener('click', function(e) {
+            e.stopPropagation();
+            toggleMobileNav();
+        });
+
+        // Close mobile nav when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.nav-container') && mobileNav.classList.contains('active')) {
+                closeMobileNav();
+            }
+        });
+
+        // Close mobile nav when clicking on links
+        document.querySelectorAll('.mobile-nav a').forEach(link => {
+            link.addEventListener('click', closeMobileNav);
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if (this.getAttribute('href') !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Form submission handling
+        document.querySelector('form')?.addEventListener('submit', function(e) {
+            // Netlify will handle the submission
+            console.log('Form submitted to Netlify');
+        });
+    </script>
+</body>
+</html>
