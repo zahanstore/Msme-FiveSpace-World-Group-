@@ -488,8 +488,49 @@
                 left: 0;
                 width: 100%;
             }
-        }
-
+            
+            /* Tablet Portrait Mode Fix */
+            @media (max-width: 1024px) and (min-width: 769px) {
+            .nav-links {
+            display: flex !important;
+            gap: 1.2rem;
+            }
+    
+            .nav-links a {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.9rem;
+            }
+    
+           .hamburger {
+           display: none !important;
+           }
+    
+           .mobile-nav {
+           display: none !important;
+           }
+    
+           .nav-container {
+           padding: 0.8rem 0;
+           }
+    
+           .logo-text {
+           font-size: 1.3rem;
+           }
+    
+           .logo-img {
+           height: 35px;
+           }
+          
+          /* Keep existing mobile styles for smaller screens */
+          @media (max-width: 768px) {
+          .nav-links {
+          display: none;
+          }
+    
+         .hamburger {
+         display: flex;
+         }
+         
         @media (max-width: 480px) {
             .hero-content h1 {
                 font-size: 1.8rem;
